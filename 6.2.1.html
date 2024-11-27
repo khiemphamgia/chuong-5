@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Máy Tính Đơn Giản</title>
+    <style>
+        /* CSS cho giao diện máy tính */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .calculator {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 280px;
+            text-align: center;
+        }
+
+        .calculator input {
+            width: 100%;
+            padding: 20px;
+            font-size: 24px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        .calculator button {
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            margin: 5px;
+            border-radius: 5px;
+            border: none;
+            background-color: #f2f2f2;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .calculator button:hover {
+            background-color: #d1d1d1;
+        }
+
+        .calculator button:active {
+            background-color: #ccc;
+        }
+
+        .calculator button.operator {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .calculator button.operator:hover {
+            background-color: #2980b9;
+        }
+
+        .calculator button.equal {
+            background-color: #2ecc71;
+            color: white;
+            width: 130px;
+        }
+
+        .calculator button.equal:hover {
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <input type="text" id="display" disabled />
+        <div>
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+            <button class="operator">/</button>
+        </div>
+        <div>
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button class="operator">*</button>
+        </div>
+        <div>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button class="operator">-</button>
+        </div>
+        <div>
+            <button>0</button>
+            <button>.</button>
+            <button class="equal">=</button>
+            <button class="operator">+</button>
+        </div>
+    </div>
+
+    <script>
+        // Lấy các phần tử cần thiết
+        const display = document.getElementById('display');
+        const buttons = document.querySelectorAll('button');
+        let currentInput = '';
+        let operator = '';
+        let firstOperand = null;
+
+        // Xử lý sự kiện nhấn nút
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                const value = button.textContent;
+
+                if (value === '=') {
+                    // Tính toán kết quả khi nhấn "="
+                    if (firstOperand !== null && operator && currentInput) {
+                        const secondOperand = parseFloat(currentInput);
+                        switch (operator) {
+                            case '+':
+                                currentInput = (firstOperand + secondOperand).toString();
+                                break;
+                            case '-':
+                                currentInput = (firstOperand - secondOperand).toString();
+                                break;
+                            case '*':
+                                currentInput = (firstOperand * secondOperand).toString();
+                                break;
+                            case '/':
+                                if (secondOperand === 0) {
+                                    currentInput = 'Lỗi';
+                                } else {
+                                    currentInput = (firstOperand / secondOperand).toString();
+                                }
+                                break;
+                        }
+                        display.value = currentInput;
+                        firstOperand = null;
+                        operator = '';
+                    }
+                } else if (['+', '-', '*', '/'].includes(value)) {
+                    // Lưu lại toán tử và số đầu tiên
+                    if (firstOperand === null) {
+                        firstOperand = parseFloat(currentInput);
+                    }
+                    operator = value;
+                    currentInput = '';
+                } else {
+                    // Cập nhật đầu vào số
+                    currentInput += value;
+                    display.value = currentInput;
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

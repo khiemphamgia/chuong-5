@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Đăng Ký</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 8px;
+            display: block;
+        }
+        input[type="text"], input[type="email"], input[type="password"], input[type="tel"], input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .footer {
+            text-align: center;
+            font-size: 14px;
+            color: #777;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Đăng Ký Tài Khoản</h1>
+
+        <form id="registrationForm" action="/submit" method="POST">
+            <label for="first name">Tên</label>
+            <input type="text" id="first name" name="first name" placeholder="Nhập tên của bạn" required>
+            
+            <label for="email">Họ</label>
+            <input type="text" id="Last Name" name="Last Name" placeholder="Nhập họ của bạn" required>
+            
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Nhập email của bạn" required>
+
+            <label for="phone">Số Điện Thoại</label>
+            <input type="tel" id="phone" name="phone" placeholder="Nhập số điện thoại" required>
+
+            <label for="password">Mật Khẩu</label>
+            <input type="password" id="password" name="password" placeholder="Nhập mật khẩu" required>
+
+            <label for="confirmPassword">Xác Nhận Mật Khẩu</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Nhập lại mật khẩu" required>
+
+            <input type="submit" value="Đăng Ký">
+        </form>
+    </div>
+
+    <div class="footer">
+        <p>© 2024 Công Ty ABC. Tất cả quyền lợi đều được bảo vệ.</p>
+    </div>
+
+    <script>
+        // Kiểm tra tính hợp lệ của mật khẩu và xác nhận mật khẩu
+        document.getElementById("registrationForm").addEventListener("submit", function(event) {
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+
+            if (password !== confirmPassword) {
+                alert("Mật khẩu và xác nhận mật khẩu không khớp!");
+                event.preventDefault(); // Ngừng việc gửi form
+            }
+        });
+    </script>
+
+</body>
+</html>
